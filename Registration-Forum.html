@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نموذج تسجيل طلب توظيف - مؤسسة كن أنت</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* تعريف الألوان الأساسية للمؤسسة */
+            --main-color: #1A5276;
+            --accent-color: #5DADE2;
+            --light-bg: #F8F9F9;
+            --form-bg: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background: var(--light-bg);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* تغيير لتحسين العرض على الجوال */
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--form-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+            border: 1px solid #e0e0e0;
+        }
+
+        .logo {
+            display: block;
+            width: 120px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            border: 2px solid var(--main-color);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--main-color);
+            margin-bottom: 5px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .welcome {
+            text-align: center;
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .welcome strong {
+            color: var(--main-color);
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--main-color);
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dcdcdc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(93, 173, 226, 0.3);
+            outline: none;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--main-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .success-message {
+            text-align: center;
+            color: #28a745;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .error-message {
+            text-align: center;
+            color: #dc3545;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 20px;
+                box-shadow: none;
+            }
+            .logo {
+                width: 100px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            .welcome {
+                font-size: 14px;
+            }
+            .form-group label,
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                font-size: 14px;
+            }
+            .btn-submit {
+                font-size: 16px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="https://skillia.netlify.app/images/photo.jpg" alt="شعار مؤسسة كن أنت" class="logo">
+    <h1>نموذج تسجيل طلب توظيف</h1>
+    <div class="welcome">
+        <p>مرحباً بكم في مؤسسة "كن أنت" للتدريب والتأهيل!</p>
+        <p>نحن سعداء بانضمامكم إلينا واهتمامكم بالانضمام إلى فريقنا. تسعى المؤسسة دائمًا إلى **تطوير المهارات المهنية والشخصية** لمن يسعون للتميز والابتكار.</p>
+        <p>هذا النموذج يتيح لكم تسجيل طلب التوظيف بطريقة سهلة ومباشرة، وسيتم التعامل مع بياناتكم **بسرية تامة**. نحن نتطلع للعمل معكم.</p>
+    </div>
+    
+    <form id="jobForm" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="full_name">الاسم الكامل</label>
+            <input type="text" id="full_name" name="full_name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="age">العمر</label>
+            <input type="number" id="age" name="age" min="18" max="99" required>
+        </div>
+
+        <div class="form-group">
+            <label for="gender">الجنس</label>
+            <select id="gender" name="gender" required>
+                <option value="">اختر...</option>
+                <option value="male">ذكر</option>
+                <option value="female">أنثى</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="country_city">البلد / المدينة</label>
+            <input type="text" id="country_city" name="country_city" required>
+        </div>
+
+        <div class="form-group">
+            <label for="qualification">المؤهل العلمي</label>
+            <input type="text" id="qualification" name="qualification" required>
+        </div>
+
+        <div class="form-group">
+            <label for="specialization">التخصص الدراسي</label>
+            <input type="text" id="specialization" name="specialization" required>
+        </div>
+
+        <div class="form-group">
+            <label for="experience">الخبرات العملية</label>
+            <textarea id="experience" name="experience" placeholder="اذكر أماكن العمل السابقة والمهام التي قمت بها"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="skills">المهارات</label>
+            <textarea id="skills" name="skills" placeholder="مثال: الحاسوب، اللغات، التدريب، المهارات الفنية..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="courses">الدورات التدريبية الحاصل عليها</label>
+            <textarea id="courses" name="courses" placeholder="اذكر أسماء الدورات والمؤسسات التي حصلت عليها منها"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">رقم الهاتف + واتساب</label>
+            <input type="tel" id="phone" name="phone" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">البريد الإلكتروني</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="telegram">رابط الحساب على تيليجرام</label>
+            <input type="url" id="telegram" name="telegram" placeholder="مثال: https://t.me/username">
+        </div>
+
+        <div class="form-group">
+            <label for="desired_field">المجال الذي يرغب بالعمل فيه</label>
+            <select id="desired_field" name="desired_field" required>
+                <option value="">اختر...</option>
+                <option value="administration">إداري</option>
+                <option value="trainer">مدرب</option>
+                <option value="marketing">تسويق</option>
+                <option value="technical_support">دعم فني</option>
+                <option value="other">أخرى</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="cv">السيرة الذاتية (CV)</label>
+            <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" required>
+        </div>
+        
+        <button type="submit" class="btn-submit">إرسال الطلب</button>
+        <p id="response-message"></p>
+
+    </form>
+</div>
+
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbwqligRCT5pEbzfeaVPNJLW6byn-WaFQ9ey8tAki-54i95Dzl38e9Eu_a77ImPCLUZ1/exec";
+const form = document.getElementById("jobForm");
+const responseMessage = document.getElementById("response-message");
+
+form.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const file = formData.get("cv");
+
+    // تحقق من وجود ملف
+    if (!file || file.size === 0) {
+        responseMessage.textContent = "❌ الرجاء إرفاق السيرة الذاتية أولاً.";
+        responseMessage.style.color = "#dc3545";
+        return;
+    }
+
+    responseMessage.textContent = "جاري إرسال الطلب، الرجاء الانتظار...";
+    responseMessage.style.color = "#007BFF";
+
+    const reader = new FileReader();
+    reader.onload = function() {
+        const base64File = reader.result.split(",")[1];
+
+        const data = {
+            full_name: formData.get("full_name"),
+            age: formData.get("age"),
+            gender: formData.get("gender"),
+            country_city: formData.get("country_city"),
+            qualification: formData.get("qualification"),
+            specialization: formData.get("specialization"),
+            experience: formData.get("experience"),
+            skills: formData.get("skills"),
+            courses: formData.get("courses"),
+            phone: formData.get("phone"),
+            email: formData.get("email"),
+            telegram: formData.get("telegram"),
+            desired_field: formData.get("desired_field"),
+            filename: file.name,
+            mimeType: file.type,
+            file: base64File
+        };
+
+        fetch(scriptURL, {
+            method: "POST",
+            body: new URLSearchParams(data)
+        })
+        .then(res => res.json())
+        .then(response => {
+            responseMessage.textContent = "✅ تم إرسال طلبك بنجاح! شكراً لك.";
+            responseMessage.style.color = "#28a745";
+            form.reset();
+        })
+        .catch(error => {
+            responseMessage.textContent = "❌ حدث خطأ، يرجى المحاولة لاحقاً.";
+            responseMessage.style.color = "#dc3545";
+            console.error(error);
+        });
+    };
+    reader.readAsDataURL(file);
+});
+</script>
+
+</body>
+</html>
