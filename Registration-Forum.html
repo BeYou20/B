@@ -262,7 +262,7 @@
 
         <div class="form-group">
             <label for="cv">السيرة الذاتية (CV)</label>
-            <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" required>
+            <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required>
         </div>
         
         <button type="submit" class="btn-submit">إرسال الطلب</button>
@@ -272,69 +272,80 @@
 </div>
 
 <script>
-const scriptURL = "https://script.google.com/macros/s/AKfycbytr8n2CTcjpkylxhAcAuKwjCrvFmiuJjAxcCpFJd52LkO_GtCON0Bf7-Zx_P__3ZRW/exec";
-const form = document.getElementById("jobForm");
-const responseMessage = document.getElementById("response-message");
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzmyJIyu9Stt0d86DmGUzZOrgElmqQnTOezRPDRICBLTN7KrWzj5APHNYgiEfz6Dbl0/exec";
+    const form = document.getElementById("jobForm");
+    const responseMessage = document.getElementById("response-message");
 
-form.addEventListener("submit", e => {
-    e.preventDefault();
+    form.addEventListener("submit", async e => {
+        e.preventDefault();
 
-    const formData = new FormData(form);
-    const file = formData.get("cv");
+        const formData = new FormData(form);
+        const file = formData.get("cv");
 
-    // تحقق من وجود ملف
-    if (!file || file.size === 0) {
-        responseMessage.textContent = "❌ الرجاء إرفاق السيرة الذاتية أولاً.";
-        responseMessage.style.color = "#dc3545";
-        return;
-    }
-
-    responseMessage.textContent = "جاري إرسال الطلب، الرجاء الانتظار...";
-    responseMessage.style.color = "#007BFF";
-
-    const reader = new FileReader();
-    reader.onload = function() {
-        const base64File = reader.result.split(",")[1];
-
-        const data = {
-            full_name: formData.get("full_name"),
-            age: formData.get("age"),
-            gender: formData.get("gender"),
-            country_city: formData.get("country_city"),
-            qualification: formData.get("qualification"),
-            specialization: formData.get("specialization"),
-            experience: formData.get("experience"),
-            skills: formData.get("skills"),
-            courses: formData.get("courses"),
-            phone: formData.get("phone"),
-            email: formData.get("email"),
-            telegram: formData.get("telegram"),
-            desired_field: formData.get("desired_field"),
-            filename: file.name,
-            mimeType: file.type,
-            file: base64File
-        };
-
-        fetch(scriptURL, {
-            method: "POST",
-            body: new URLSearchParams(data)
-        })
-        .then(res => res.json())
-        .then(response => {
-            responseMessage.textContent = "✅ تم إرسال طلبك بنجاح! شكراً لك.";
-            responseMessage.style.color = "#28a745";
-            form.reset();
-        })
-        .catch(error => {
-            responseMessage.textContent = "❌ حدث خطأ، يرجى المحاولة لاحقاً.";
+        if (!file || file.size === 0) {
+            responseMessage.textContent = "❌ الرجاء إرفاق السيرة الذاتية أولاً.";
             responseMessage.style.color = "#dc3545";
-            console.error(error);
-        });
-    };
-    reader.readAsDataURL(file);
-});
+            return;
+        }
+
+        responseMessage.textContent = "جاري إرسال الطلب، الرجاء الانتظار...";
+        responseMessage.style.color = "#007BFF";
+
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = async () => {
+            const base64File = reader.result.split(",")[1];
+            
+            // تجهيز البيانات ككائن JSON
+            const data = {
+                full_name: formData.get("full_name"),
+                age: formData.get("age"),
+                gender: formData.get("gender"),
+                country_city: formData.get("country_city"),
+                qualification: formData.get("qualification"),
+                specialization: formData.get("specialization"),
+                experience: formData.get("experience"),
+                skills: formData.get("skills"),
+                courses: formData.get("courses"),
+                phone: formData.get("phone"),
+                email: formData.get("email"),
+                telegram: formData.get("telegram"),
+                desired_field: formData.get("desired_field"),
+                filename: file.name,
+                mimeType: file.type,
+                file: base64File
+            };
+            
+            try {
+                // إرسال البيانات كـ JSON
+                const res = await fetch(scriptURL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const response = await res.json();
+                
+                if (response.status === "success") {
+                    responseMessage.textContent = "✅ تم إرسال طلبك بنجاح! شكراً لك.";
+                    responseMessage.style.color = "#28a745";
+                    form.reset();
+                } else {
+                    responseMessage.textContent = "❌ حدث خطأ: " + response.message;
+                    responseMessage.style.color = "#dc3545";
+                }
+
+            } catch(error) {
+                responseMessage.textContent = "❌ حدث خطأ، يرجى المحاولة لاحقاً.";
+                responseMessage.style.color = "#dc3545";
+                console.error(error);
+            }
+        };
+    });
 </script>
 
 </body>
 </html>
- 
